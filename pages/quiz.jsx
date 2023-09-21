@@ -35,7 +35,7 @@ const nextQuestion = () => {
   setResult((prev) =>
   selectedAnswers ? {
     ...prev,
-     score: prev.score + 8,
+     score: prev.score + 10,
      correctAnswer: prev.correctAnswer + 1,   
   }
   : {
@@ -87,7 +87,12 @@ const nextQuestion = () => {
               )}
         </div>
         ) :  (
-        <div className='quiz-container'></div>) }
+          
+        <div className='quiz-container'>
+          <h3>Results</h3>
+          <h3>overall {(result.score /25) * 100}%</h3>
+        </div>
+        ) }
       </div>
     </div>
   )
