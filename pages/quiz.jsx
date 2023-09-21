@@ -27,7 +27,32 @@ if (answer === correctAnswer) {
   setSelectedAnswers(false)
   console.log('false')
 }
-}
+};
+
+//takes us to the next question and calculate score
+const nextQuestion = () => {
+  selectedAnswersIndex(null)
+  setResult((prev) =>
+  selectedAnswers ? {
+    ...prev,
+     score: prev.score + 8,
+     correctAnswer: prev.correctAnswer + 1,   
+  }
+  : {
+    ...prev,
+    wrongAnswer: prev.wrongAnswer + 1,
+  }
+  );
+
+  if (activeQuestion !== questions.length -1) {
+    setActiveQuestion((prev) => prev + 1);
+  } else {
+    setActiveQuestion(0);
+    setDisplayResult(true);
+  }
+
+  setConfirm(false);
+};
 
   return (
     <div className='container'>
@@ -49,6 +74,17 @@ if (answer === correctAnswer) {
                     <span>{answer}</span>
                 </li>
             ))}
+
+            {confirm ? (
+            <button onClick={nextQuestion} className='btn'>
+              {activeQuestion === question.length -1 ? 'finish' : 'Next'}
+              </button>
+              ) : (
+              <button onClick={nextQuestion} disabled className='btn-disable'>
+                {' '}
+                 {activeQuestion === question.length -1 ? 'finish' : 'Next'}
+              </button>
+              )}
         </div>
         ) :  (
         <div className='quiz-container'></div>) }
