@@ -16,7 +16,18 @@ const [result, setResult] = useState({totalScore: 0, correctAnswer: 0, wrongAnsw
 const {questions} = quizz;
 const {question, answers, correctAnswer} = questions[activeQuestion];
 
-//
+//select and check answers
+const onAnswerSelected = (answer, idx) => {
+setConfirm(true);
+setSelectedAnswersIndex(idx)
+if (answer === correctAnswer) {
+  setSelectedAnswers(true)
+  console.log('true')
+} else {
+  setSelectedAnswers(false)
+  console.log('false')
+}
+}
 
   return (
     <div className='container'>
@@ -33,9 +44,9 @@ const {question, answers, correctAnswer} = questions[activeQuestion];
 
             {/*mapping through question*/}
             <h3>{questions[activeQuestion].question}</h3>
-            {answers.map((answers, idx)=>(
-                <li key={idx}>
-                    <span>{answers}</span>
+            {answers.map((answer, idx)=>(
+                <li key={idx} onClick={() =>onAnswerSelected(answer, idx)} className={selectedAnswersIndex === idx ? 'li-selected' : 'li-hover'}>
+                    <span>{answer}</span>
                 </li>
             ))}
         </div>
