@@ -1,7 +1,7 @@
 'use client'
 
 import React, {useState} from 'react'
-import { quizz } from './data'
+import { quizz } from '@/data';
 
 const quiz = () => {
 
@@ -31,11 +31,11 @@ if (answer === correctAnswer) {
 
 //takes us to the next question and calculate score
 const nextQuestion = () => {
-  selectedAnswersIndex(null)
+  setSelectedAnswersIndex(null)
   setResult((prev) =>
   selectedAnswers ? {
     ...prev,
-     score: prev.score + 10,
+     totalScore: prev.totalScore + 10,
      correctAnswer: prev.correctAnswer + 1,   
   }
   : {
@@ -90,12 +90,22 @@ const nextQuestion = () => {
           
         <div className='quiz-container'>
           <h3>Results</h3>
-          <h3>overall {(result.score /25) * 100}%</h3>
+          <h3>overall {(result.totalScore /25) * 100}%</h3>
+
+          <p>Total Questions: <span>{questions.length}</span></p>
+
+          <p>Total Score: <span>{result.totalScore}</span></p>
+
+          <p>Correct Answers: <span>{result.correctAnswer}</span></p>
+
+          <p>Wrong Answers: <span>{result.wrongAnswer}</span></p>
+
+          <button onClick={() => window.location.reload()}>Restart</button>
         </div>
         ) }
       </div>
     </div>
-  )
-}
+  );
+};
 
 export default quiz;
